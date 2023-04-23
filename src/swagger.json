@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RentX API document",
+    "description": "An API about car rentals",
+    "version": "1.0.0",
+    "contact": {
+      "email": "mramos@rootbox.tech"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create user",
+        "description": "Creates a new user if not exists",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Test name",
+                  "email": "test@mail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "List users",
+        "description": "Lists existent users",
+        "parameters": {
+          "in": "header",
+          "name": "user_id"
+        },
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unknown server error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Show user profile",
+        "description": "Shows user profile",
+        "parameters": {
+          "in": "path",
+          "name": "testUser"
+        },
+        "responses": {
+          "200": {
+            "description": "User profile",
+            "content": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not exists"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Show user profile",
+        "description": "Shows user profile",
+        "parameters": {
+          "in": "path",
+          "name": "testUser"
+        },
+        "responses": {
+          "200": {
+            "description": "User is now an admin"
+          },
+          "404": {
+            "description": "User not exists"
+          }
+        }
+      }
+    }
+  }
+}
